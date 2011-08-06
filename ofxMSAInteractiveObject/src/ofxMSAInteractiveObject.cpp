@@ -45,7 +45,11 @@ ofxMSAInteractiveObject::ofxMSAInteractiveObject() {
 }
 
 ofxMSAInteractiveObject::~ofxMSAInteractiveObject() {
-	disableAllEvents();
+	try {
+		disableAllEvents();
+	} catch (Poco::SystemException) {
+		return; // we're leaving anyways so no need to delete
+	}
 }
 
 void ofxMSAInteractiveObject::killMe() {
